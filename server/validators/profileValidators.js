@@ -37,8 +37,32 @@ export const createProfileValidator = () => {
       .isAlphanumeric()
       .isLength({ min: 1, max: 100 })
       .withMessage('Invalid Last Name'),
-    body('email')
+    body('email').exists().isEmail().toLowerCase().withMessage('Invalid Email'),
+  ]
+}
+
+export const updateProfileValidator = () => {
+  return [
+    param('id')
       .exists()
+      .custom((value) => {
+        return mongoose.Types.ObjectId.isValid(value)
+      })
+      .withMessage('Invalid Id'),
+    body('first_name')
+      .optional()
+      .isString()
+      .isAlphanumeric()
+      .isLength({ min: 1, max: 100 })
+      .withMessage('Invalid First Name'),
+    body('last_name')
+      .optional()
+      .isString()
+      .isAlphanumeric()
+      .isLength({ min: 1, max: 100 })
+      .withMessage('Invalid First Name'),
+    body('email')
+      .optional()
       .isEmail()
       .toLowerCase()
       .withMessage('Invalid Email'),

@@ -29,7 +29,15 @@ export const createProfile = async (req, res) => {
 
 export const updateProfile = async (req, res) => {
   try {
-    res.status(200).json({ message: 'Update Profile' })
+    const updatedData = req.body
+    const updatedProfile = await Profile.findOneAndUpdate(
+      { _id: req.params.id },
+      updatedData,
+      { new: true }
+    )
+    res
+      .status(200)
+      .json({ message: 'Successfully Update Profile', updatedProfile })
   } catch (error) {
     res.status(404).json({ message: error.message })
   }
