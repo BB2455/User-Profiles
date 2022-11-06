@@ -11,7 +11,8 @@ export const getAllProfiles = async (req, res) => {
 
 export const getProfileById = async (req, res) => {
   try {
-    res.status(200).json({ message: 'Get Profile By Id' })
+    const profile = await Profile.findOne({ _id: req.params.id })
+    res.status(200).json(profile)
   } catch (error) {
     res.status(404).json({ message: error.message })
   }
@@ -19,7 +20,8 @@ export const getProfileById = async (req, res) => {
 
 export const createProfile = async (req, res) => {
   try {
-    res.status(200).json({ message: 'Create Profile' })
+    const newProfile = await new Profile(req.body).save()
+    res.status(200).json(newProfile)
   } catch (error) {
     res.status(404).json({ message: error.message })
   }
@@ -35,7 +37,8 @@ export const updateProfile = async (req, res) => {
 
 export const deleteProfile = async (req, res) => {
   try {
-    res.status(200).json({ message: 'Delete Profile' })
+    await Profile.deleteOne({ _id: req.params.id })
+    res.status(200).json({ message: 'Deleted Profile' })
   } catch (error) {
     res.status(404).json({ message: error.message })
   }
