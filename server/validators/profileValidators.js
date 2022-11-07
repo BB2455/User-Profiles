@@ -1,4 +1,4 @@
-import { body, param } from 'express-validator'
+import { body, param, query } from 'express-validator'
 import mongoose from 'mongoose'
 
 export const getProfileByIdValidator = () => {
@@ -60,11 +60,26 @@ export const updateProfileValidator = () => {
       .isString()
       .isAlphanumeric()
       .isLength({ min: 1, max: 100 })
-      .withMessage('Invalid First Name'),
+      .withMessage('Invalid Last Name'),
     body('email')
       .optional()
       .isEmail()
       .toLowerCase()
       .withMessage('Invalid Email'),
+  ]
+}
+
+export const searchProfileValidator = () => {
+  return [
+    query('q')
+      .isAlphanumeric()
+      .exists()
+      .isLength({ min: 1, max: 100 })
+      .isString()
+      .withMessage('Invalid Search Term'),
+    query('searchBy')
+      .optional()
+      .contains('last_name')
+      .withMessage('Invalid Search By Value'),
   ]
 }

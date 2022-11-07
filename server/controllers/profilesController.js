@@ -57,7 +57,11 @@ export const deleteProfile = async (req, res) => {
 //  - order results by first_name, last_name, created_at, updated_at
 export const searchProfiles = async (req, res) => {
   try {
-    res.status(200).json({ message: 'Search Profile' })
+    const regex = RegExp(`^${req.query.q}`, 'giu')
+    const search = { [req.query.searchBy || 'first_name']: regex }
+    const sort = {[req.query.sortBy || 'createdAt']: req.query.sort || -1}
+    const searchedProfiles = await Profile.find(search).sort(sort)
+    res.status(200).json(searchedProfiles)
   } catch (error) {
     res.status(404).json({ message: error.message })
   }
