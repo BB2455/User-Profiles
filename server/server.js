@@ -16,7 +16,6 @@ app.use(async (req, res, next) => {
   next(createError.NotFound('This route does not exist'))
 })
 
-// eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   res.status(err.status || 500)
   res.send({

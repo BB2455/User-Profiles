@@ -5,6 +5,7 @@ export default (req, res, next) => {
   if (errors.isEmpty()) {
     return next()
   }
+
   const extractedErrors = []
   errors.array().map((err) => extractedErrors.push({ [err.param]: err.msg }))
 
