@@ -1,4 +1,5 @@
 import { validationResult } from 'express-validator'
+import createError from 'http-errors'
 
 export default (req, res, next) => {
   const errors = validationResult(req)
@@ -9,7 +10,5 @@ export default (req, res, next) => {
   const extractedErrors = []
   errors.array().map((err) => extractedErrors.push({ [err.param]: err.msg }))
 
-  return res.status(422).json({
-    errors: extractedErrors,
-  })
+  next(createError.UnprocessableEntity({errors: extractedErrors}))
 }
