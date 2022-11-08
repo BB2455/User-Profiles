@@ -7,6 +7,7 @@ import {
   searchProfiles,
   updateProfile,
 } from '../controllers/profilesController.js'
+import validate from '../utils/validate.js'
 import {
   createProfileValidator,
   deleteProfileValidator,
@@ -14,7 +15,6 @@ import {
   searchProfileValidator,
   updateProfileValidator,
 } from '../validators/profileValidators.js'
-import validate from '../utils/validate.js'
 
 const router = express.Router()
 

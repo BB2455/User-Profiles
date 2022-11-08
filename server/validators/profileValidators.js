@@ -1,4 +1,8 @@
-import { body, param, query } from 'express-validator'
+import {
+  body,
+  param,
+  query
+} from 'express-validator'
 import mongoose from 'mongoose'
 
 export const getProfileByIdValidator = () => {
@@ -29,13 +33,13 @@ export const createProfileValidator = () => {
       .exists()
       .isString()
       .isAlphanumeric()
-      .isLength({ min: 1, max: 100 })
+      .isLength({ max: 100, min: 1 })
       .withMessage('Invalid First Name'),
     body('last_name')
       .exists()
       .isString()
       .isAlphanumeric()
-      .isLength({ min: 1, max: 100 })
+      .isLength({ max: 100, min: 1 })
       .withMessage('Invalid Last Name'),
     body('email').exists().isEmail().toLowerCase().withMessage('Invalid Email'),
   ]
@@ -53,13 +57,13 @@ export const updateProfileValidator = () => {
       .optional()
       .isString()
       .isAlphanumeric()
-      .isLength({ min: 1, max: 100 })
+      .isLength({ max: 100, min: 1 })
       .withMessage('Invalid First Name'),
     body('last_name')
       .optional()
       .isString()
       .isAlphanumeric()
-      .isLength({ min: 1, max: 100 })
+      .isLength({ max: 100, min: 1 })
       .withMessage('Invalid Last Name'),
     body('email')
       .optional()
@@ -73,13 +77,32 @@ export const searchProfileValidator = () => {
   return [
     query('q')
       .isAlphanumeric()
-      .exists()
-      .isLength({ min: 1, max: 100 })
+      .optional()
+      .isLength({ max: 100, min: 1 })
       .isString()
       .withMessage('Invalid Search Term'),
-    query('searchBy')
+    query('search')
       .optional()
-      .contains('last_name')
-      .withMessage('Invalid Search By Value'),
+      .isIn([
+        'last_name',
+        'first_name'
+      ])
+      .withMessage('Invalid Search Value'),
+    query('sort')
+      .optional()
+      .isIn([
+        'last_name',
+        'first_name',
+        'createdAt',
+        'updatedAt'
+      ])
+      .withMessage('Invalid Sort Value'),
+    query('order')
+      .optional()
+      .isIn([
+        'desc',
+        'asc'
+      ])
+      .withMessage('Invalid Order Value'),
   ]
 }

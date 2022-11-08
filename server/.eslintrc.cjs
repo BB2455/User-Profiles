@@ -47,14 +47,7 @@ module.exports = {
       }
     ],
     'no-multi-spaces': 'off',
-    'no-unused-vars' : [
-      'warn',
-      { allow:
-        [
-          'next'
-        ]
-      }
-    ],
+    'no-unused-vars' : 'warn',
     'nonblock-statement-body-position': 'off',
     'object-curly-newline'            : 'off',
     'object-property-newline'         : 'off',
