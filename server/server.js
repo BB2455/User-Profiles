@@ -6,8 +6,16 @@ import profileRoutes from './routes/profileRoute.js'
 
 const app = express()
 
+const origin =
+  process.env.NODE_ENV === 'development' ? '*' : process.env.BASE_URL
+
 app.use(express.json())
-app.use(cors({ credentials: true, origin: process.env.BASE_URL }))
+app.use(
+  cors({
+    credentials: true,
+    origin,
+  })
+)
 app.use(helmet())
 
 app.use('/profiles', profileRoutes)
