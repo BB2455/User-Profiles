@@ -23,7 +23,7 @@ const Search = () => {
   }
 
   return (
-    <Form onSubmit={handleSubmit} className="p-5">
+    <Form onSubmit={handleSubmit} className="p-5 pb-3">
       <Form.Group className="mb-3" controlId="formSearchBar">
         <Form.Control
           name="Search"
