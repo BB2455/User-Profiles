@@ -3,6 +3,7 @@ import ProfilesTable from '../components/ProfilesTable'
 import useAxios from '../hooks/useAxios'
 import Container from 'react-bootstrap/Container'
 import Spinner from 'react-bootstrap/Spinner'
+import Search from '../components/Search'
 
 const Home = () => {
   const { response, loading, error } = useAxios({
@@ -11,6 +12,7 @@ const Home = () => {
   })
   return (
     <Container className="mt-5 mb-5">
+      <Search />
       <ProfilesTable data={response} />
       {loading && (
         <Container className="d-flex justify-content-center mt-5">
