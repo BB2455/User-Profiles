@@ -1,5 +1,5 @@
 import Table from 'react-bootstrap/Table'
-import TableData from './TableData'
+import TableRow from './TableRow'
 
 const ProfilesTable = ({ data }) => {
   return (
@@ -16,9 +16,10 @@ const ProfilesTable = ({ data }) => {
         </tr>
       </thead>
       <tbody>
-        {data &&
+        {data.length > 0 &&
           data.map((data, index) => {
-            return <TableData data={data} index={index} key={data?._id} />
+            if (index > 29) return null // Temporary
+            return <TableRow data={data} index={index} key={data?._id} />
           })}
       </tbody>
     </Table>

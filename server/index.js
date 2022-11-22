@@ -1,6 +1,6 @@
 import dotenv from 'dotenv'
-import database from './database/index.js'
 import app from './server.js'
+import database from './src/database/index.js'
 
 dotenv.config()
 

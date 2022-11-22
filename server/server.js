@@ -2,12 +2,14 @@ import cors from 'cors'
 import express from 'express'
 import helmet from 'helmet'
 import createError from 'http-errors'
-import profileRoutes from './routes/profileRoute.js'
+import profileRoutes from './src/routes/profileRoute.js'
 
 const app = express()
 
 const origin =
-  process.env.NODE_ENV === 'development' ? '*' : process.env.BASE_URL
+  process.env.NODE_ENV === 'development' ?
+    'http://localhost:3000' :
+    process.env.BASE_URL
 
 app.use(express.json())
 app.use(

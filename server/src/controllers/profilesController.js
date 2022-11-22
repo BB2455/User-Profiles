@@ -3,7 +3,7 @@ import Profile from '../models/profile.js'
 
 export const getAllProfiles = async (req, res, next) => {
   try {
-    const profiles = await Profile.find().sort({createdAt: -1})
+    const profiles = await Profile.find().sort({ createdAt: -1 })
     res.status(200).json(profiles)
   } catch (error) {
     next(error)
@@ -13,7 +13,6 @@ export const getAllProfiles = async (req, res, next) => {
 export const getProfileById = async (req, res, next) => {
   try {
     const profile = await Profile.findById(req.params.id)
-    await Profile.findByIdAndDelete
     res.status(200).json(profile)
   } catch (error) {
     next(error)
@@ -31,16 +30,13 @@ export const createProfile = async (req, res, next) => {
 
 export const updateProfile = async (req, res, next) => {
   try {
-    const updatedData = req.body
     const updatedProfile = await Profile.findByIdAndUpdate(
       req.params.id,
-      updatedData,
+      req.body,
       { new: true }
     )
     if (!updatedProfile) throw createError.NotFound('No Profile Found With Id')
-    res
-      .status(200)
-      .json({ message: 'Successfully Updated Profile', updatedProfile })
+    res.status(200).json(updatedProfile)
   } catch (error) {
     next(error)
   }
@@ -83,7 +79,7 @@ export const searchProfiles = async (req, res, next) => {
         searchEndDate
       ],
     }).sort(sort)
-    res.status(200).json({ searchedProfiles })
+    res.status(200).json(searchedProfiles)
   } catch (error) {
     next(error)
   }

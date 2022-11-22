@@ -1,2 +1,2 @@
 export { default } from './ProfilesTable'
-export { default as TableData } from './TableData'
+export { default as TableRow } from './TableRow'

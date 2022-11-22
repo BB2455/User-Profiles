@@ -1,10 +1,12 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Button from 'react-bootstrap/Button'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form'
 import FloatingLabel from 'react-bootstrap/FloatingLabel'
 import Accordion from 'react-bootstrap/Accordion'
+import { createSearchQueryString } from '../../utils/createSearchQueryString'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 const Search = () => {
   const [search, setSearch] = useState('')
@@ -14,13 +16,38 @@ const Search = () => {
   const [sort, setSort] = useState('createdAt')
   const [order, setOrder] = useState('desc')
 
+  const location = useLocation()
+  const navigate = useNavigate()
+
   const handleChange = (e) => {
     setSearch(e.target.value)
   }
 
-  const handleSubmit = (e) => {
+  let controller
+  const handleSubmit = async (e) => {
     e.preventDefault()
+    const queryURLString = createSearchQueryString({
+      q: search,
+      search: filter,
+      startDate,
+      endDate,
+      sort: sort,
+      order: order,
+    })
+
+    // If search query is the same as previous don't continue
+    if (
+      (location.pathname === '/search') &
+      (location.search === queryURLString)
+    )
+      return
+
+    navigate(`/search${queryURLString}`)
   }
+
+  useEffect(() => {
+    return controller && controller.abort()
+  }, [controller])
 
   return (
     <Form onSubmit={handleSubmit} className="p-5 pb-3">
