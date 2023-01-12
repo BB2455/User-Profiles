@@ -28,11 +28,7 @@ Rename .env.example to .env
 ## Cloning Repository
 
 ```
-SSH: git clone ssh://git-codecommit.ca-central-1.amazonaws.com/v1/repos/fs-assessment-blair
-
-OR
-
-HTTPS: git clone https://git-codecommit.ca-central-1.amazonaws.com/v1/repos/fs-assessment-blair
+git clone https://github.com/BB2455/User-Profiles.git
 ```
 
 ## Dev Installation Backend
